@@ -1,0 +1,39 @@
+server:
+  port: 8848
+  tomcat: # 设置tomcat最大吞吐量 ，可以设置 -1 不限制，也可以设置一下比较大的数字这里设置 100M。当上传文件超 tomcat 的大小限制后会先于 Controller 触发异常，所以这时我们的异常处理类无法捕获 Controller 层的异常了，这就是无法捕获到异常的根本原因。
+    max-swallow-size: 5MB
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500KB
+      max-request-size: 500KB
+      resolve-lazily: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+    url: jdbc:mysql://43.139.31.34:3306/clock_in
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 43.139.31.34 # 设置ip
+    port: 6379 # 设置端口
+    password:  #设置密码
+    database: 0 #设置使用哪个数据库
+    timeout: 5000 #设置超时时间,毫秒
+    #如果想要使用jedis需要额外引入,然后配置,jedis
+    lettuce: # 配置lettuce,springDataRedis默认是使用lettuce,
+      pool:
+        max-active: 180 # 最大连接
+        max-idle: 170 #最大空闲连接
+        min-idle: 4 #最小空闲连接
+        max-wait: 100 #连接等待时间ms
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+
+file:
+  uClass: D:\clockIn\uClass\
+#  uClass: /root/dada/java/jar/clockin/uClass/

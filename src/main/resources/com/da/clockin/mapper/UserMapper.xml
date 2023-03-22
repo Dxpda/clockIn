@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.da.clockin.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.da.clockin.entity.User">
+        <id column="id" property="id" />
+        <result column="u_name" property="uName" />
+        <result column="head" property="head" />
+        <result column="type" property="type" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+<!--    注册-->
+    <insert id="Register">
+        insert into clock_in.user(u_name, `password`, type, create_time, update_time)
+        values (#{user},#{pw},#{type},now(),now())
+    </insert>
+
+<!--    登录-->
+    <select id="login" resultType="com.da.clockin.entity.User">
+        select * from clock_in.user ${ew.customSqlSegment}
+    </select>
+
+<!--    判断账号是否以注册-->
+    <select id="isRegister" resultType="java.lang.Integer">
+        select count(*) from clock_in.user where u_name = #{user};
+    </select>
+
+</mapper>
